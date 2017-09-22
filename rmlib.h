@@ -6,6 +6,7 @@
 #define REMOTEMEMORY_RMLIB_H
 
 #include "rmRef_h.h"
+#include "clientRmlib.h"
 
 class Rmlib
 {
@@ -23,7 +24,9 @@ private:
     char* ipHA;
     char* ip;
     void* value;
-
+    ClientRmlib client;
+    char generateMessage();
+    char generateMessage(char*);
 };
 
 #endif //REMOTEMEMORY_RMLIB_H

@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/adrian/CLionProjects/RemoteMemory/Structures/LinkedList.cpp
+cstdio
+-
+LinkedList.h
+/home/adrian/CLionProjects/RemoteMemory/Structures/LinkedList.h
+
+/home/adrian/CLionProjects/RemoteMemory/Structures/LinkedList.h
+Node.h
+/home/adrian/CLionProjects/RemoteMemory/Structures/Node.h
+
+/home/adrian/CLionProjects/RemoteMemory/Structures/Node.h
+../rmRef_h.h
+/home/adrian/CLionProjects/RemoteMemory/rmRef_h.h
+
+/home/adrian/CLionProjects/RemoteMemory/main.cpp
+iostream
+-
+rmlib.h
+/home/adrian/CLionProjects/RemoteMemory/rmlib.h
+
+/home/adrian/CLionProjects/RemoteMemory/rmRef_h.h
+
+/home/adrian/CLionProjects/RemoteMemory/rmlib.cpp
+rmlib.h
+/home/adrian/CLionProjects/RemoteMemory/rmlib.h
+
+/home/adrian/CLionProjects/RemoteMemory/rmlib.h
+rmRef_h.h
+/home/adrian/CLionProjects/RemoteMemory/rmRef_h.h
+

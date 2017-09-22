@@ -15,11 +15,7 @@ public:
     Node* next;
 };
 
-Node::Node(rmRef_h dato)
-{
-    this->dato = dato;
-    this->next = NULL;
-}
+
 
 
 #endif //REMOTEMEMORY_NODE_H

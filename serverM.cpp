@@ -19,9 +19,11 @@ int main()
     int server, client;
     int portNum = 8080;
     bool isExit = false;
-    int bufsize = 1024;
-    char buffer[bufsize];
+    int bufsize;
+    char buffer[20000];
     int read_size;
+    socklen_t lenrecv;
+    struct sockaddr addr;
 
     struct sockaddr_in server_addr;
     socklen_t size;
@@ -67,22 +69,38 @@ int main()
         cout << "Error al aceptar" << endl;
         exit(1);
     }
+    while(1) {
+        cout << "Esperando mensaje" << endl;
 
-    while((read_size = recv(server, buffer,bufsize,0) > 0))
-    {
-        write(server, buffer, strlen(buffer));
+        lenrecv = sizeof(addr);
+        read_size = recvfrom(server, buffer, 20000, 0, &addr, &lenrecv);
+        cout << "Bytes Recibidos: " << endl;
+        cout << read_size << endl;
 
+        bufsize = read_size;
+
+        if (read_size > 0) {
+            char buf_read[read_size];
+            buf_read = "" + buffer;
+            cout << buf_read << endl;
+
+            write(server, buf_read, read_size);
+
+
+        }
+        if (read_size == 0)
+        {
+            cout << "Cliente desconectado" << endl;
+            break;
+        }
+
+        if (read_size == -1) {
+            cout << "recv fallido" << endl;
+            exit(1);
+        }
     }
 
-    if(*buffer == '#')
-    {
-        cout << "cliente desconectado" << endl;
-        exit(1);
-    }else if (read_size == -1)
-    {
-        cout << "recv fallido" << endl;
-    }
-
+    return 0;
 
 
     /*
@@ -139,5 +157,5 @@ int main()
 
     close(client);
     */
-    return 0;
+
 }

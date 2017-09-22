@@ -12,14 +12,10 @@ public:
     void* value;
     int value_size;
     int referencias;
+    rmRef_h(char*, void*, int);
     rmRef_h();
 
 };
-
-rmRef_h::rmRef_h()
-{
-    this->referencias = 1;
-}
 
 
 #endif //REMOTEMEMORY_RMREF_H_H

@@ -78,6 +78,7 @@ void LinkedList::freeMemory()
 
 rmRef_h LinkedList::getRef(char * key)
 {
+
     if(this->head == NULL) {
         Node *current = this->head;
         while(current->next != NULL){
@@ -90,7 +91,9 @@ rmRef_h LinkedList::getRef(char * key)
             return  current->dato;
         }
     }
-    return NULL;
+    sizeof("8");
+    return rmRef_h();
+
 }
 
 bool LinkedList::findKey(char * key) {

@@ -19,7 +19,11 @@ int main()
 {
     int sock;
     struct sockaddr_in server;
-    char message[1024], server_replay[1024];
+    char message[20000], server_replay[20000];
+    int read_size;
+    int bufsize;
+    socklen_t lenrecv;
+    struct sockaddr addr;
 
     sock = socket(AF_INET, SOCK_STREAM, 0);
     if (sock == -1)
@@ -49,19 +53,34 @@ int main()
         cout << "Client: ";
         cin >> message;
 
+
+
         if (send(sock, message, strlen(message), 0) < 0)
         {
             cout << "Error al enviar" << endl;
             return 1;
         }
 
-        if (recv(sock, server_replay, 1024, 0) < 0)
+
+        lenrecv = sizeof(addr);
+        read_size = recvfrom(sock, server_replay, 20000, 0, &addr, &lenrecv);
+        cout << "Bytes Recibidos: " << endl;
+        cout << read_size << endl;
+
+        bufsize = read_size;
+
+        if (read_size < 0)
         {
             cout << "Recv fallido" << endl;
             break;
         }
+
+        char  server_replay2[read_size];
+        server_replay2 = "" + server_replay;
+
         cout << "Server reply: " << endl;
-        cout << server_replay << endl;
+        cout << server_replay2 << endl;
+
 
 
     }

@@ -22,6 +22,7 @@ void Rmlib::rm_new(char *key, void *value, int value_size)
     this->key = key;
     this->value = value;
     this->value_size = value_size;
+
 }
 
 rmRef_h Rmlib::rm_get(char *key)

@@ -14,8 +14,8 @@ int main(){
     cout << "Creando libreria" << endl;
 
 
-    Rmlib r1(ClientRmlib(nullptr, 0, nullptr, 0));
-    r1.rm_init(ip,port,ipHA,portHA);
+    Rmlib r1 =  Rmlib();
+    r1. rm_init(ip,port,ipHA,portHA);
 
     cout << "Libreria creada" << endl;
    // r1.rm_new()

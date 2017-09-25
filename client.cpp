@@ -76,7 +76,7 @@ int main()
         }
 
         char  server_replay2[read_size];
-        server_replay2 = "" + server_replay;
+        //server_replay2 = "" + server_replay;
 
         cout << "Server reply: " << endl;
         cout << server_replay2 << endl;

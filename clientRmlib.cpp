@@ -57,7 +57,14 @@ int ClientRmlib::connectClient(){
     }
 }
 
-void ClientRmlib::sendMessage(char message)
+void ClientRmlib::sendMessage(char* message, int messageSize)
 {
+    if (send(sock, message, messageSize, 0) < 0)
+    {
+        cout << "Error al enviar" << endl;
+    } else{
+        cout << "Mensaje enviado correctamente" << endl;
+    }
+
 
 }

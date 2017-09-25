@@ -26,7 +26,8 @@ private:
     void* value;
     ClientRmlib client;
     char generateMessage();
-    char generateMessage(char*);
+    char * generateMessage(rmRef_h);
+    bool interpretMessage();
 };
 
 #endif //REMOTEMEMORY_RMLIB_H

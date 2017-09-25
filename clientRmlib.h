@@ -17,7 +17,7 @@ public:
     ClientRmlib();
     ClientRmlib(char*, int , char*, int );
     int connectClient();
-    void sendMessage(char );
+    void sendMessage(char*, int );
 
 };
 

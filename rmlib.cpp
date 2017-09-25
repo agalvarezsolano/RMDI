@@ -30,18 +30,20 @@ void Rmlib::rm_new(char *key, void *value, int value_size)
     this->value = value;
     this->value_size = value_size;
 
-    char message = generateMessage();
-    int state = this->client.connect(0, nullptr, 0);
+    char* message;
+    rmRef_h instance = rmRef_h(this->key,this->value, this->value_size);
+    message = generateMessage(instance);
+    int state = this->client.connectClient();
 
     if (state > 0)
     {
         cout << "Conectado al Main server" << endl;
-        this->client.sendMessage(message);
+        this->client.sendMessage(message, sizeof(message));
 
     } else if(state < 0)
     {
         cout << "Conectado al server HA" << endl;
-        this->client.sendMessage(message);
+        this->client.sendMessage(message, sizeof(message));
 
     } else if (state == 0)
     {
@@ -63,13 +65,16 @@ void Rmlib::rm_delete(rmRef_h *handler)
     this->key = handler->key;
 }
 
-bool Rmlib::interpretMessage()
+bool Rmlib::interpretMessage(char* instance)
 {
-    return false;
+    return true;
 }
 
-char Rmlib::generateMessage(char*) {
-    return 0;
+char* Rmlib::generateMessage(rmRef_h bd) {
+    char* message;
+    sprintf(message, "%c@%d@%d#", bd.key,bd.value ,bd.value_size);
+
+    return message;
 }
 
 char Rmlib::generateMessage() {

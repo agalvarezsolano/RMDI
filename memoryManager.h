@@ -8,20 +8,17 @@
 #include "Structures/LinkedList.h"
 
 class MemoryManager{
-
-    static MemoryManager* instance;
 public:
+    static MemoryManager* getInstance();
     LinkedList cacheMemory;
     LinkedList mainMemory;
     LinkedList HAMemory;
-
-    static MemoryManager *MMSingleton(){
-        if(!instance){
-            instance = new MemoryManager;
-        }
-        return instance;
-    }
+private:
+    MemoryManager();
+    static MemoryManager* instance;
 
 };
+
+
 
 #endif //REMOTEMEMORY_MEMORYMANAGER_H

@@ -32,7 +32,7 @@ void Rmlib::rm_new(char *key, void *value, int value_size)
 
     char* message;
     rmRef_h instance = rmRef_h(this->key,this->value, this->value_size);
-    message = generateMessage(instance);
+    message = generateMessage(instance, 'n');
     int state = this->client.connectClient();
 
     if (state > 0)
@@ -70,10 +70,17 @@ bool Rmlib::interpretMessage(char* instance)
     return true;
 }
 
-char* Rmlib::generateMessage(rmRef_h bd) {
-    char* message;
-    sprintf(message, "%c@%d@%d#", bd.key,bd.value ,bd.value_size);
-
+char* Rmlib::generateMessage(rmRef_h bd, char type) {
+    char* message = nullptr;
+    if(type == 'n') {
+        sprintf(message, "%c%s@%p@%d@#", type, bd.key, bd.value, bd.value_size);
+    }
+    if(type == 'g'){
+        sprintf(message,"%c%s@#", type,bd.key);
+    }
+    if (type == 'd'){
+        sprintf(message, "%c%s@#", type, bd.key);
+    }
     return message;
 }
 

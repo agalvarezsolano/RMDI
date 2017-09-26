@@ -26,7 +26,7 @@ private:
     void* value;
     ClientRmlib client;
     char generateMessage();
-    char * generateMessage(rmRef_h);
+    char * generateMessage(rmRef_h,char);
     bool interpretMessage();
 };
 

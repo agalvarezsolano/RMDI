@@ -19,6 +19,9 @@ public:
     void deleteKey(char*);
     rmRef_h getRef(char*);
     void freeMemory();
+    int size;
+    void insertFirstCache(rmRef_h dato);
+    void deleteLast();
 };
 
 #endif //REMOTEMEMORY_LINKEDLIST_H

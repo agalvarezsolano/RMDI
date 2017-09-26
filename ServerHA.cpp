@@ -1,11 +1,11 @@
 //
-// Created by adrian on 24/09/17.
+// Created by adrian on 25/09/17.
 //
 
 #include <sys/socket.h>
 #include <iostream>
 #include <netinet/in.h>
-#include "MainServer.h"
+#include "ServerHA.h"
 #include <string.h>
 #include <unistd.h>
 
@@ -15,22 +15,21 @@ void *connection_handler(void *);
 rmRef_h interpretMessage(char*);
 char* createdMessage(rmRef_h bd);
 
-MainServer::MainServer()
-{
+ServerHA::ServerHA(){
 
     this->socket_desc = socket(AF_INET, SOCK_STREAM,0);
     if (socket_desc == -1){
-        cout << "Error al crea el socket del Main Server" << endl;
+        cout << "Error al crea el socket del HA Server" << endl;
     }
-    cout << "Main Socket creado" << endl;
+    cout << "HA Socket creado" << endl;
 
     server->sin_family = AF_INET;
-    server->sin_port = htons(8888);
+    server->sin_port = htons(5555);
     server->sin_addr.s_addr = INADDR_ANY;
 
     if(bind(socket_desc,(struct sockaddr*)&server, sizeof(server)) < 0)
     {
-       cout << "Error en Main Bind" << endl;
+        cout << "Error en HA Bind" << endl;
         exit(1);
     }
     cout << "Escuchando" << endl;
@@ -166,3 +165,4 @@ char* createdMessage(rmRef_h bd){
     sprintf(message, "%s@%p@%d@#", bd.key, bd.value, bd.value_size);
     return message;
 }
+

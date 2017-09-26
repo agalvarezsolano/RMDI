@@ -3,12 +3,14 @@
 //
 
 #include <cstdio>
+#include <malloc.h>
 #include "LinkedList.h"
 
 
 LinkedList::LinkedList()
 {
     this->head =  NULL;
+    this->size = 0;
 }
 
 void LinkedList::insertFirst(rmRef_h dato)
@@ -17,25 +19,25 @@ void LinkedList::insertFirst(rmRef_h dato)
     if(this->head == NULL)
     {
         this->head = newNode;
+
     } else {
         newNode->next = this->head;
         this->head = newNode;
     }
+    this->size++;
 }
 
-void LinkedList::insertLast(rmRef_h dato)
+void LinkedList::deleteLast()
 {
-    Node* newNode = new Node(dato);
-    if(this->head == NULL)
-    {
-        this->head = newNode;
-    } else{
-        Node* temp = this->head;
-        while (temp->next != NULL){
-            temp = temp->next;
-        }
+    if(this->head != NULL) {
 
-        temp->next = newNode;
+        Node *current = this->head;
+        Node *previous = current;
+        while (current->next != NULL) {
+            previous = current;
+            current = current->next;
+        }
+        previous->next= NULL;
     }
 }
 
@@ -54,23 +56,29 @@ void LinkedList::deleteKey(char * key)
         if (current->dato.key == key) {
             current->dato.referencias = 0;
         }
+        this->size--;
     }
+
 }
 
 void LinkedList::freeMemory()
 {
     if(this->head == NULL) {
         Node *current = this->head;
-        Node *previous;
+        Node *previous = current;
         while(current->next != NULL){
             if (current->dato.referencias == 0){
                 previous->next=current->next;
+                free(current);
             }
             previous = current;
             current =  current->next;
-        }
-        if (current->dato.referencias == 0) {
+        }if(this->size == 1){
+            free(current);
+            this->head = NULL;
+        }if(this->size > 1 && current->dato.referencias == 0) {
             previous->next=current->next;
+            free(current);
         }
     }
 }
@@ -91,7 +99,6 @@ rmRef_h LinkedList::getRef(char * key)
             return  current->dato;
         }
     }
-    sizeof("8");
     return rmRef_h();
 
 }
@@ -107,9 +114,30 @@ bool LinkedList::findKey(char * key) {
         }
         if (temp->dato.key == key){
             return true;
-        }else {
+        }else{
             return false;
         }
     }
     return false;
+}
+
+
+void LinkedList::insertFirstCache(rmRef_h dato)
+{
+    Node* newNode = new Node(dato);
+    if(this->head == NULL)
+    {
+        this->head = newNode;
+        this->size++;
+    }
+    if(this->size == 5){
+        newNode->next = this->head;
+        this->head = newNode;
+        deleteLast();
+    }else{
+        newNode->next = this->head;
+        this->head = newNode;
+        this->size++;
+    }
+
 }

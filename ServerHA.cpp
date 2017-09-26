@@ -32,13 +32,14 @@ ServerHA::ServerHA(){
         cout << "Error en HA Bind" << endl;
         exit(1);
     }
-    cout << "Escuchando" << endl;
+
 
     listen(socket_desc, 20);
 
     c = sizeof(struct sockaddr_in);
     while ((client_sock = accept(socket_desc, (struct sockaddr*)&client, (socklen_t*)&c)))
     {
+        cout << "Escuchando" << endl;
         cout << "Cliente aceptado" << endl;
         pthread_t sniffer_thread;
         new_sock = static_cast<int *>(malloc(1));
@@ -66,7 +67,7 @@ void *connection_handler(void *socket_desc)
     {
         rmRef_h instance = interpretMessage(clientMessage);
         MemoryManager* storage = MemoryManager::getInstance();
-        if(storage->mainMemory.findKey(instance.key)) {
+        if(storage->HAMemory.findKey(instance.key)) {
 
             if (clientMessage[0] == 'n') {
                 storage->mainMemory.insertFirst(instance);
@@ -83,7 +84,7 @@ void *connection_handler(void *socket_desc)
                     message = createdMessage(instance);
                     write(sock,message,strlen(message));
                 }else{
-                    instance = storage->mainMemory.getRef(instance.key);
+                    instance = storage->HAMemory.getRef(instance.key);
                     storage->cacheMemory.insertFirstCache(instance);
                     message = createdMessage(instance);
                     write(sock,message,strlen(message));
@@ -157,8 +158,6 @@ rmRef_h interpretMessage(char* clientMessage){
 
     return instance;
 }
-
-
 
 char* createdMessage(rmRef_h bd){
     char* message = nullptr;

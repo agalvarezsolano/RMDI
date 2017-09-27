@@ -50,7 +50,7 @@ int ClientRmlib::connectClient(){
         return 1;
 
     } else if(connect(this->sock,(struct sockaddr*)&this->serverHA, sizeof(this->serverHA)) != -1) {
-        return -1;
+        return 2;
     }
 }
 

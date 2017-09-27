@@ -38,13 +38,13 @@ void Rmlib::rm_new(char *key, void *value, int value_size)
     int state = client.connectClient();
     cout << state << endl;
 
-    if (state > 0)
+    if (state == 1)
     {
         cout << "Conectado al Main server" << endl;
         cout << sizeof(message) << endl;
         client.sendMessage(message, sizeof(message));
 
-    } else if(state < 0)
+    } else if(state == -2)
     {
         cout << "Conectado al server HA" << endl;
         client.sendMessage(message, sizeof(message));
@@ -77,12 +77,13 @@ char* Rmlib::generateMessage(rmRef_h bd, char type) {
     char* message = nullptr;
     string  word;
     if(type == 'n') {
-        string n,m,o,p,q;
+        string n,m,p,q, o;
         n = type;
         word = word + n;
         m = bd.key;
         word = word + m + '@';
-        o = (int) bd.value;
+        int* s = (int *)bd.value;
+        o = *s;
         word = word +  o + '@';
         q = bd.value_size;
         word = word + q + '@' +'#';

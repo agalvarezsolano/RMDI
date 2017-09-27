@@ -3,7 +3,6 @@
 //
 
 #include "rmlib.h"
-#include "clientRmlib.h"
 #include <iostream>
 
 using namespace std;
@@ -20,12 +19,13 @@ void Rmlib::rm_init(char* ip, int port, char* ipHA, int portHA)
     this->ipHA = ipHA;
     this->portHA = portHA;
 
-    this->client = ClientRmlib(this->ip, this->port, this->ipHA, this->portHA);
+
 
 }
 
 void Rmlib::rm_new(char *key, void *value, int value_size)
 {
+    ClientRmlib client = ClientRmlib(this->ip, this->port, this->ipHA, this->portHA);
     this->key = key;
     this->value = value;
     this->value_size = value_size;
@@ -33,25 +33,26 @@ void Rmlib::rm_new(char *key, void *value, int value_size)
     char* message;
     rmRef_h instance = rmRef_h(this->key,this->value, this->value_size);
     message = generateMessage(instance, 'n');
-    int state = this->client.connectClient();
+
+
+    int state = client.connectClient();
+    cout << state << endl;
 
     if (state > 0)
     {
         cout << "Conectado al Main server" << endl;
-        this->client.sendMessage(message, sizeof(message));
+        cout << sizeof(message) << endl;
+        client.sendMessage(message, sizeof(message));
 
     } else if(state < 0)
     {
         cout << "Conectado al server HA" << endl;
-        this->client.sendMessage(message, sizeof(message));
+        client.sendMessage(message, sizeof(message));
 
     } else if (state == 0)
     {
         cout << "Sin conexion a los servidores" << endl;
-
     }
-
-
 }
 
 rmRef_h Rmlib::rm_get(char *key)
@@ -67,13 +68,24 @@ void Rmlib::rm_delete(rmRef_h *handler)
 
 bool Rmlib::interpretMessage(char* instance)
 {
+
     return true;
 }
 
 char* Rmlib::generateMessage(rmRef_h bd, char type) {
+
     char* message = nullptr;
+    string  word;
     if(type == 'n') {
-        sprintf(message, "%c%s@%p@%d@#", type, bd.key, bd.value, bd.value_size);
+        string n,m,o,p,q;
+        n = type;
+        word = word + n;
+        m = bd.key;
+        word = word + m + '@';
+        o = (int) bd.value;
+        word = word +  o + '@';
+        q = bd.value_size;
+        word = word + q + '@' +'#';
     }
     if(type == 'g'){
         sprintf(message,"%c%s@#", type,bd.key);
@@ -81,9 +93,8 @@ char* Rmlib::generateMessage(rmRef_h bd, char type) {
     if (type == 'd'){
         sprintf(message, "%c%s@#", type, bd.key);
     }
-    return message;
-}
+    cout << "tama;o creado" << endl;
 
-char Rmlib::generateMessage() {
-    return 0;
+    cout << sizeof(message) << endl;
+    return message;
 }

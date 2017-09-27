@@ -6,7 +6,7 @@
 #define REMOTEMEMORY_NODE_H
 
 
-#include "../rmRef_h.h"
+#include "rmRef_h.h"
 
 class Node {
 public:

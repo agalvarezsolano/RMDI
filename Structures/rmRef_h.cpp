@@ -14,7 +14,7 @@ rmRef_h::rmRef_h()
 {
     this->key = NULL;
     this->value = NULL;
-    this->value_size = NULL;
+    this->value_size = 0;
     this->referencias = 0;
 
 }

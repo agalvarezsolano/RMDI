@@ -5,8 +5,8 @@
 #ifndef REMOTEMEMORY_RMLIB_H
 #define REMOTEMEMORY_RMLIB_H
 
-#include "rmRef_h.h"
-#include "clientRmlib.h"
+#include "../Structures/rmRef_h.h"
+#include "../Connection/clientRmlib.h"
 
 class Rmlib
 {
@@ -24,10 +24,8 @@ private:
     char* ipHA;
     char* ip;
     void* value;
-    ClientRmlib client;
-    char generateMessage();
     char * generateMessage(rmRef_h,char);
-    bool interpretMessage();
+    bool interpretMessage(char* instance);
 };
 
 #endif //REMOTEMEMORY_RMLIB_H

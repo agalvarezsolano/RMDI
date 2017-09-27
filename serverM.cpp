@@ -60,7 +60,7 @@ int main(int argc , char *argv[])
         if( pthread_create( &sniffer_thread , NULL ,  connection_handler , (void*) new_sock) < 0)
         {
             perror("could not create thread");
-            return 1;
+           return 1;
         }
 
         //Now join the thread , so that we dont terminate before the thread

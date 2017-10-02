@@ -1,6 +1,3 @@
-//
-// Created by adrian on 21/09/17.
-//
 
 #ifndef REMOTEMEMORY_RMLIB_H
 #define REMOTEMEMORY_RMLIB_H
@@ -25,7 +22,7 @@ private:
     char* ip;
     void* value;
     char * generateMessage(rmRef_h,char);
-    bool interpretMessage(char* instance);
+    rmRef_h interpretMessage(char* instance);
 };
 
 #endif //REMOTEMEMORY_RMLIB_H

@@ -1,6 +1,4 @@
-//
-// Created by adrian on 21/09/17.
-//
+
 
 #ifndef REMOTEMEMORY_NODE_H
 #define REMOTEMEMORY_NODE_H

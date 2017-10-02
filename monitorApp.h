@@ -1,8 +1,0 @@
-//
-// Created by adrian on 26/09/17.
-//
-
-#ifndef REMOTEMEMORY_MONITORAPP_H
-#define REMOTEMEMORY_MONITORAPP_H
-
-#endif //REMOTEMEMORY_MONITORAPP_H

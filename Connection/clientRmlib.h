@@ -1,6 +1,3 @@
-//
-// Created by curso on 22/09/17.
-//
 
 #ifndef REMOTEMEMORY_CLIENTRMLIB_H
 #define REMOTEMEMORY_CLIENTRMLIB_H
@@ -17,7 +14,7 @@ public:
     ClientRmlib();
     ClientRmlib(char*, int , char*, int );
     int connectClient();
-    void sendMessage(char*, int );
+    char* sendMessage(char*, int );
 
 };
 

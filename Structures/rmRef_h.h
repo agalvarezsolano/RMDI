@@ -1,6 +1,3 @@
-//
-// Created by adrian on 21/09/17.
-//
 
 #ifndef REMOTEMEMORY_RMREF_H_H
 #define REMOTEMEMORY_RMREF_H_H
